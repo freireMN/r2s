@@ -1,13 +1,8 @@
 import sys, json, time
-
 from pyarrow import csv
 import pyarrow.parquet as pq
 
-#sys.path.append('/source/R2S/src/util')
-
 import fileHandler as fh
-
-
 
 def import_dataset(args):
 
@@ -22,9 +17,6 @@ def import_dataset(args):
     return imported_files
 
 def convert2parquet(fileIn,fileOut):
-
-    #  filecsv = "/source/datasets/movielens/ml-25m/ratings.csv"
-    #  fileparquet = "/source/datasets/movielens/ml-25m/ratings.parquet"
 
     file_converted = json.loads('{ "fileIn":"", "fileOut": "", "fileInSize": 0, "fileOutSize": 0 , "et": 0}') 
 

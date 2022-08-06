@@ -2,11 +2,13 @@ import os
 import pickle
 import hashlib
 
-hardpath = '/home/vagrant/repo/r2s/'
+
+R2S_BASE_FOLDER = '/home/mnf/projects/phd/r2s/'
+R2S_UTIL = R2S_BASE_FOLDER + 'src/util/'
+R2S_CACHE = R2S_UTIL + 'temp/cache/'
+R2S_CACHEMAP = R2S_CACHE + 'cachemap.pickle'
 
 
-cache_path = hardpath + 'src/util/temp/cache/'
-cachemap_path = hardpath + 'src/util/temp/cache/cachemap.pickle'
 
 def _get_args_dict(fn, args, kwargs):
     
@@ -34,7 +36,7 @@ def cached():
                 return fn(*args, **kwargs)
             
             hashkey = hashlib.sha1(str(key).encode("utf-8")).hexdigest()
-            cachemap = open_cachemap(cachemap_path)
+            cachemap = open_cachemap(R2S_CACHEMAP)
 
             print(key)
            
@@ -47,13 +49,13 @@ def cached():
             # execute the function with all arguments passed
             res = fn(*args, **kwargs)
         
-            cachemap[hashkey] = cache_path + hashkey + '.pickle'
+            cachemap[hashkey] = R2S_CACHE + hashkey + '.pickle'
 
             res['metadata'] = metadata 
             res['metadata']['cache'] = cachemap[hashkey]
 
             ## update cache map
-            update_cachemap(cachemap_path,hashkey,cachemap[hashkey])
+            update_cachemap(R2S_CACHEMAP,hashkey,cachemap[hashkey])
 
             # write to cache file
             with open(cachemap[hashkey], 'wb') as cachehandle:

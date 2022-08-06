@@ -10,9 +10,7 @@ R2S_IMPORT_DATASET_MESSAGE = 'Time elapsed {} to run {} algorithm '
 
 sys.path.append(R2S_UTIL)
 
-
 import dataset_import as r2sdata
-
 
 args = Namespace(folderIn=R2S_DATASET_FOLDER_IN, folderOut=R2S_DATASET_FOLDER_OUT,extension='csv')
 
